@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family:'宋体';
+        }
+
+        #textbox {
+            margin: 100px auto;
+            box-sizing: border-box;
+            padding: 20px;
+            border: 5px solid #bbb;
+            width: 700px;
+            margin-bottom: 20px;
+        }
+
+        #text {
+            font-size: 20px;
+            line-height: 30px;
+        }
+
+        #shouqi {
+            text-decoration: none;
+            font-family: '微软雅黑';
+        }
+
+        .btn{
+            text-decoration: none;
+            display: inline-block;
+            height: 35px;
+            width: 60px;
+            background-color: #999;
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            margin-left: 350px;
+            line-height: 35px;
+            font-size: 15px;
+            text-align: center;
+            font-family: '微软雅黑';
+            cursor: pointer;
+        }
+
+        .btn#exchange {
+            top: 140px;
+        }
+        
+        #add {
+            margin: 0 auto;
+            box-sizing: border-box;
+            border: pink solid 5px;
+            padding: 10px;
+            width: 450px;
+            overflow: hidden;
+            display: none;
+        }
+
+        #fcn {
+            box-sizing: border-box;
+            height: 38px;
+            padding: 0px;
+        }
+
+        .btnAdd {
+            float: left;
+            width: 60px;
+            height: 25px;
+            border-bottom: rgb(134, 21, 38) solid 2px;
+            font-size: 15px;
+            font-family: '微软雅黑';
+            line-height: 25px;
+            text-align: center;
+            padding: 5px;
+            cursor: pointer;
+        }
+        #padding {
+            float: left;
+            border-bottom: rgb(134, 21, 38) solid 2px;
+            width: 280px;
+            height: 35px;
+        }
+        .addTxt {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="textbox">
+        <span id="text">
+            这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话这是随便写的一段话
+        </span>
+        <a href="javascript:;" id="shouqi"><<收起</a>
+    </div>
+    <ul>
+        <li class="btn" id="search">查找</li>
+        <li class="btn" id="exchange">替换</li>
+    </ul>
+    <div id="add">
+        <div id="fcn">
+            <div class="btnAdd" id="">查找</div>
+            <div class="btnAdd" id="">替换</div>
+            <div id="padding"></div>
+        </div>
+        <div class="addTxt" id="textsch">
+            <input class="textsch" type="text">
+            <button class="submitTxt">提交</button>
+        </div>
+        <div class="addTxt" id="textxchg">
+            <input class="textxchg" type="text">
+            <input class="textxchg" type="text">
+            <button class="submitTxt">提交</button>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var text = document.getElementById('text');
+    var txtCtrl = document.getElementById('shouqi');
+    var shouqi = false;
+    var fullTxt = text.innerHTML;
+    txtCtrl.onclick = function() {//控制文本展开/收缩
+        if (shouqi) {
+            text.innerHTML = fullTxt;
+            txtCtrl.innerHTML = '<<收起';
+        }
+        else {
+            text.innerHTML = fullTxt.substring(0,40) + '……';
+            txtCtrl.innerHTML = '>>展开';
+        }
+        shouqi = ! shouqi;
+    }
+    var addBox = document.getElementById('add');
+    var orgnBtn = document.getElementsByClassName('btn');
+    var fcnBtn = document.getElementsByClassName('btnAdd');
+    var txtoprtn = document.getElementsByClassName('addTxt');
+    var sch = function textSch() {
+        addBox.style.display = 'block';
+        fcnBtn[0].style.background = 'rgb(134, 21, 38)';
+        fcnBtn[0].style.color = 'white';
+        fcnBtn[1].style.color = 'black';
+        fcnBtn[1].style.background = '#fff';
+        txtoprtn[0].style.display = 'block';
+        txtoprtn[1].style.display = 'none';
+    }
+    var xchg = function textXchg() {
+        addBox.style.display = 'block';
+        fcnBtn[1].style.background = 'rgb(134, 21, 38)';
+        fcnBtn[1].style.color = 'white';
+        fcnBtn[0].style.color = 'black';
+        fcnBtn[0].style.background = '#fff';
+        txtoprtn[1].style.display = 'block';
+        txtoprtn[0].style.display = 'none';
+    }
+    orgnBtn[0].onclick = sch;
+    fcnBtn[0].onclick = sch;
+    orgnBtn[1].onclick = xchg;
+    fcnBtn[1].onclick = xchg;
+    var doFcn = document.getElementsByClassName('submitTxt');
+    var str = /^\s+|\s+$/;
+    var doSch = function Sch() {
+        var txtSch = document.getElementsByClassName('textsch');
+        var txt = txtSch[0].value;
+        var mytext = document.getElementById('text');
+        if(str.test(txt) || txt ==="") {
+            alert("请输入有效内容！");
+        }
+        else {
+            if(mytext.innerHTML.split(txt).length === 1) {
+                alert("查找失败！");
+                txtSch[0].value = "";
+                return false;
+            }
+            mytext.innerHTML = mytext.innerHTML.split(txt).join("<span style='background:rgb(255,255,0);'>" + txt + "</span>");
+            txtSch[0].value = "";
+        }
+    }
+    var doXchg = function Xchg() {
+        var txtXchg = document.getElementsByClassName('textxchg');
+        var txtOld = txtXchg[0].value;
+        var txtNew = txtXchg[1].value;
+        var mytext = document.getElementById("text");
+        if(str.test(txtOld) || str.test(txtNew) || txtOld === "" || txtNew === "") {
+            alert("请输入有效内容！");
+        }
+        else {
+            if(mytext.innerHTML.split(txtOld).length === 1) {
+                alert("查找失败！");
+                txtXchg[0].value = "";
+                txtXchg[1].value = "";
+                return false;
+            }
+            mytext.innerHTML = mytext.innerHTML.split(txtOld).join("<span style = 'background:rgb(0,255,255);'>" + txtNew + "</span>");
+            txtXchg[0].value = "";
+            txtXchg[1].value = "";
+        }
+    }
+    doFcn[0].onclick = doSch;
+    doFcn[1].onclick = doXchg;
+
+</script>
+</html>
